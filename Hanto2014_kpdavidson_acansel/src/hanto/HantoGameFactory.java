@@ -11,6 +11,7 @@
 package hanto;
 
 import hanto.common.*;
+import hanto.student_kpdavidson_acansel_.alpha.AlphaHantoGame;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version
@@ -45,7 +46,7 @@ public class HantoGameFactory
 	 * @param gameId the version desired.
 	 * @return the game instance
 	 */
-	public static HantoGame makeHantoGame(HantoGameID gameId)
+	public HantoGame makeHantoGame(HantoGameID gameId)
 	{
 		return makeHantoGame(gameId, HantoPlayerColor.BLUE);
 	}
@@ -56,10 +57,15 @@ public class HantoGameFactory
 	 * @param movesFirst the player color that moves first
 	 * @return the game instance
 	 */
-	public static HantoGame makeHantoGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
+	public HantoGame makeHantoGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
 		HantoGame game = null;
 		switch (gameId) {
-			// to be filled in
+		case ALPHA_HANTO:
+			game = new AlphaHantoGame();
+			break;
+		default:
+			//never
+			break;
 		}
 		return game;
 	}
