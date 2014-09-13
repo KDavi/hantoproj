@@ -17,15 +17,15 @@ public class Fourth_Turn_No_Butterfly {
 		try {
 			// turn 1
 			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,0)); //Blue
-			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,0)); //Red
+			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,1)); //Red
 			// turn 2
-			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,0)); //Blue
-			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,0)); //Red
+			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,2)); //Blue
+			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,3)); //Red
 			// turn 3
-			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,0)); //Blue
-			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,0)); //Red
+			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,4)); //Blue
+			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,5)); //Red
 			// turn 4
-			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,0)); //Blue
+			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,6)); //Blue
 			
 			fail("should never be reached");
 		} catch (HantoException e) {

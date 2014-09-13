@@ -1,3 +1,6 @@
+/**
+ * file comment
+ */
 package hanto.student_kpdavidson_acansel_.alpha;
 
 import hanto.common.HantoCoordinate;
@@ -8,12 +11,17 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 
+/**
+ * 
+ * @author Kyle & Adam
+ *
+ */
 public class AlphaHantoGame implements HantoGame {
 	
 	HantoPlayerColor currentTurn;
 
 	public AlphaHantoGame() {
-		this.currentTurn = HantoPlayerColor.BLUE;
+		currentTurn = HantoPlayerColor.BLUE;
 	}
 	
 	/**
@@ -51,7 +59,7 @@ public class AlphaHantoGame implements HantoGame {
 		}
 		else if(currentTurn.equals(HantoPlayerColor.RED)) {
 			if(pieceType.equals(HantoPieceType.BUTTERFLY) &&
-					from == null && isAdjacent(new AlphaCoordinate(0,0), to)) {
+					from == null && isAdjacent(new AlphaCoordinate(0, 0), to)) {
 				result = MoveResult.DRAW;
 			}
 		}
@@ -66,7 +74,6 @@ public class AlphaHantoGame implements HantoGame {
 	 */
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -75,8 +82,7 @@ public class AlphaHantoGame implements HantoGame {
 	 */
 	@Override
 	public String getPrintableBoard() {
-		// TODO Auto-generated method stub
-		return null;
+		return "not supported";
 	}
 
 	/**

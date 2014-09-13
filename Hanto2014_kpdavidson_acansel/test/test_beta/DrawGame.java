@@ -48,7 +48,7 @@ public class DrawGame {
 			assertEquals(result, MoveResult.DRAW);
 			
 		} catch (HantoException e) {
-			fail("should end in draw with no problems");
+			fail(e.getMessage());
 		}
 	}
 

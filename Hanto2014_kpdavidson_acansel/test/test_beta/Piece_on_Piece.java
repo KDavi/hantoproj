@@ -19,7 +19,7 @@ public class Piece_on_Piece {
 			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,0));   //Red
 			fail("should never be reached");
 		} catch (HantoException e) {
-			assertEquals(e.getMessage(), "Spot already taken");
+			assertEquals("Spot already taken", e.getMessage());
 		}
 	}
 

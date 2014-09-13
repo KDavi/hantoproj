@@ -21,5 +21,19 @@ public class IllegalPlacement {
 			assertEquals(e.getMessage(), "Illegal Destination");
 		}
 	}
+	
+	@Test
+	public void test2() {
+		HantoGameFactory factory = HantoGameFactory.getInstance();
+		HantoGame betagame = factory.makeHantoGame(HantoGameID.BETA_HANTO);
+		
+		try {
+			betagame.makeMove(HantoPieceType.BUTTERFLY, null, new BetaCoordinate(0,0));
+			betagame.makeMove(HantoPieceType.BUTTERFLY, null, new BetaCoordinate(0,2));
+			fail("should never be reached");
+		} catch (HantoException e) {
+			assertEquals(e.getMessage(), "Illegal Destination");
+		}
+	}
 
 }
