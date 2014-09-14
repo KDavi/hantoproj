@@ -62,6 +62,9 @@ public class AlphaHantoGame implements HantoGame {
 					from == null && isAdjacent(new AlphaCoordinate(0, 0), to)) {
 				result = MoveResult.DRAW;
 			}
+			else {
+				throw new HantoException("Illegal move");
+			}
 		}
 		
 		return result;
@@ -74,7 +77,15 @@ public class AlphaHantoGame implements HantoGame {
 	 */
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
-		return null;
+		HantoPiece ret = null;
+		HantoCoordinate zero = new AlphaCoordinate(0, 0);
+		if(where.getX() == 0 && where.getY() == 0) {
+			ret = new AlphaHantoPiece(HantoPlayerColor.BLUE, HantoPieceType.BUTTERFLY);
+		}
+		else if(isAdjacent(zero, where) && currentTurn == HantoPlayerColor.RED) {
+			ret = new AlphaHantoPiece(HantoPlayerColor.RED, HantoPieceType.BUTTERFLY);
+		}
+		return ret;
 	}
 
 	/**

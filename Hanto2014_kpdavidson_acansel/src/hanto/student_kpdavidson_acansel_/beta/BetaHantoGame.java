@@ -107,7 +107,8 @@ public class BetaHantoGame implements HantoGame {
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
 		String key = Integer.toString(where.getX()) + Integer.toString(where.getY());
-		return gameboard.get(key);
+		HantoPiece piece = gameboard.get(key);
+		return piece;
 	}
 
 	@Override

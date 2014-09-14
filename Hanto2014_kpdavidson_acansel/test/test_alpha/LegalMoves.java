@@ -33,5 +33,19 @@ public class LegalMoves {
 			assertTrue(true);
 		}
 	}
+	
+	@Test
+	public void badMove2() {
+		HantoGame game = new AlphaHantoGame();
+		
+		try {
+			game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(0,0));
+			game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(0,2));
+			// should not go past here without exception
+			fail("Illegal move did not cause exception");
+		} catch (HantoException e) {
+			assertTrue(true);
+		}
+	}
 
 }
