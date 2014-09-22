@@ -3,6 +3,7 @@ package test_alpha;
 import static org.junit.Assert.*;
 import hanto.common.*;
 import hanto.student_kpdavidson_acansel_.alpha.*;
+import hanto.student_kpdavidson_acansel_.common.BasicCoordinate;
 
 import org.junit.Test;
 
@@ -14,9 +15,9 @@ public class GameToDraw {
 		MoveResult result = null;
 		
 		try {
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(0,0));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,0));
 			assertEquals(result, MoveResult.OK);
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(0,1));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,1));
 			assertEquals(result, MoveResult.DRAW);
 		} catch (HantoException e) {
 			fail("Both moves are legal");
@@ -29,9 +30,9 @@ public class GameToDraw {
 		MoveResult result = null;
 		
 		try {
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(0,0));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,0));
 			assertEquals(result, MoveResult.OK);
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(1,0));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(1,0));
 			assertEquals(result, MoveResult.DRAW);
 		} catch (HantoException e) {
 			fail("Both moves are legal");
@@ -44,9 +45,9 @@ public class GameToDraw {
 		MoveResult result = null;
 		
 		try {
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(0,0));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,0));
 			assertEquals(result, MoveResult.OK);
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(1,-1));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(1,-1));
 			assertEquals(result, MoveResult.DRAW);
 		} catch (HantoException e) {
 			fail("Both moves are legal");
@@ -59,9 +60,9 @@ public class GameToDraw {
 		MoveResult result = null;
 		
 		try {
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(0,0));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,0));
 			assertEquals(result, MoveResult.OK);
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(0,-1));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,-1));
 			assertEquals(result, MoveResult.DRAW);
 		} catch (HantoException e) {
 			fail("Both moves are legal");
@@ -74,9 +75,9 @@ public class GameToDraw {
 		MoveResult result = null;
 		
 		try {
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(0,0));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,0));
 			assertEquals(result, MoveResult.OK);
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(-1,0));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(-1,0));
 			assertEquals(result, MoveResult.DRAW);
 		} catch (HantoException e) {
 			fail("Both moves are legal");
@@ -89,9 +90,9 @@ public class GameToDraw {
 		MoveResult result = null;
 		
 		try {
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(0,0));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,0));
 			assertEquals(result, MoveResult.OK);
-			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new AlphaCoordinate(-1,1));
+			result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(-1,1));
 			assertEquals(result, MoveResult.DRAW);
 		} catch (HantoException e) {
 			fail("Both moves are legal");

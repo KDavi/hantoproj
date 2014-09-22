@@ -4,6 +4,7 @@
 package hanto.student_kpdavidson_acansel_.beta;
 
 import hanto.common.*;
+import hanto.student_kpdavidson_acansel_.common.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +20,9 @@ public class BetaHantoGame implements HantoGame {
 
 	private int turncount; //max = 12 (6 turns)
 	private HantoPlayerColor turn; // who's turn it is
-	private Map<String, BetaHantoPiece> gameboard;
-	private BetaCoordinate bluefly; // location of blue butterfly
-	private BetaCoordinate redfly;  // location of red butterfly
+	private Map<String, BasicHantoPiece> gameboard;
+	private BasicCoordinate bluefly; // location of blue butterfly
+	private BasicCoordinate redfly;  // location of red butterfly
 	private List<HantoPieceType> legalPieces; // a list of legal pieces
 	private int blueSparrowCount; // how many blue sparrows exist
 	private int redSparrowCount; // how many red sparrows exist
@@ -33,7 +34,7 @@ public class BetaHantoGame implements HantoGame {
 	public BetaHantoGame(HantoPlayerColor turn) {
 		this.turn = turn;
 		turncount = 1;
-		gameboard = new HashMap<String, BetaHantoPiece>();
+		gameboard = new HashMap<String, BasicHantoPiece>();
 		bluefly = null;
 		redfly = null;
 		legalPieces = new ArrayList<HantoPieceType>();
@@ -82,19 +83,8 @@ public class BetaHantoGame implements HantoGame {
 			turn = HantoPlayerColor.BLUE;
 		}
 		
-		if(bluefly != null) {
-			if(num_adjacent(bluefly) == 6) {
-				result = MoveResult.RED_WINS;
-			}
-		}
-		if(redfly != null) {
-			if(num_adjacent(redfly) == 6) {
-				result = MoveResult.BLUE_WINS;
-			}
-		}
-		if(turncount == 13 && result.equals(MoveResult.OK)) {
-			result = MoveResult.DRAW;
-		}
+		// check for game over situation
+		result = checkGameOver();
 		
 		return result;
 	}
@@ -123,22 +113,22 @@ public class BetaHantoGame implements HantoGame {
 	private int num_adjacent(HantoCoordinate location) {
 		int count = 0;
 		
-		if(getPieceAt(new BetaCoordinate(location.getX(), location.getY() + 1)) != null) {
+		if(getPieceAt(new BasicCoordinate(location.getX(), location.getY() + 1)) != null) {
 			count++;
 		}
-		if(getPieceAt(new BetaCoordinate(location.getX() + 1, location.getY())) != null) {
+		if(getPieceAt(new BasicCoordinate(location.getX() + 1, location.getY())) != null) {
 			count++;
 		}
-		if(getPieceAt(new BetaCoordinate(location.getX() + 1, location.getY() - 1)) != null) {
+		if(getPieceAt(new BasicCoordinate(location.getX() + 1, location.getY() - 1)) != null) {
 			count++;
 		}
-		if(getPieceAt(new BetaCoordinate(location.getX(), location.getY() - 1)) != null) {
+		if(getPieceAt(new BasicCoordinate(location.getX(), location.getY() - 1)) != null) {
 			count++;
 		}
-		if(getPieceAt(new BetaCoordinate(location.getX() - 1, location.getY())) != null) {
+		if(getPieceAt(new BasicCoordinate(location.getX() - 1, location.getY())) != null) {
 			count++;
 		}
-		if(getPieceAt(new BetaCoordinate(location.getX() - 1, location.getY() + 1)) != null) {
+		if(getPieceAt(new BasicCoordinate(location.getX() - 1, location.getY() + 1)) != null) {
 			count++;
 		}
 		
@@ -224,15 +214,15 @@ public class BetaHantoGame implements HantoGame {
 	private void move(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) {
 		
-		BetaHantoPiece piece = new BetaHantoPiece(pieceType, turn);
+		BasicHantoPiece piece = new BasicHantoPiece(pieceType, turn);
 		String key = Integer.toString(to.getX()) + Integer.toString(to.getY());
 		
 		if(piece.getType().equals(HantoPieceType.BUTTERFLY)) {
 			if(turn.equals(HantoPlayerColor.RED)) {
-				redfly = new BetaCoordinate(to.getX(), to.getY());
+				redfly = new BasicCoordinate(to.getX(), to.getY());
 			}
 			else if(turn.equals(HantoPlayerColor.BLUE)) {
-				bluefly = new BetaCoordinate(to.getX(), to.getY());
+				bluefly = new BasicCoordinate(to.getX(), to.getY());
 			}
 		}
 		else if(piece.getType().equals(HantoPieceType.SPARROW)) {
@@ -245,5 +235,38 @@ public class BetaHantoGame implements HantoGame {
 		}
 		
 		gameboard.put(key, piece);
+	}
+	
+	/**
+	 * Checks gameover conditions at the end of a turn
+	 * @return a move result based on the current state, OK, red/blue wins, draw
+	 */
+	private MoveResult checkGameOver() {
+		MoveResult result = MoveResult.OK;
+		boolean blueflysurrounded = false;
+		boolean redflysurrounded = false;
+		
+		// check surrounded butterflys
+		if(bluefly != null) {
+			if(num_adjacent(bluefly) == 6) {
+				blueflysurrounded = true;
+			}
+		}
+		if(redfly != null) {
+			if(num_adjacent(redfly) == 6) {
+				redflysurrounded = true;
+			}
+		}
+		
+		// check for early endgame
+		if(blueflysurrounded && redflysurrounded) result = MoveResult.DRAW;
+		else if(blueflysurrounded) result = MoveResult.RED_WINS;
+		else if(redflysurrounded) result = MoveResult.BLUE_WINS;
+		
+		// if no endgame check for draw due to time
+		if(turncount == 13 && result.equals(MoveResult.OK)) {
+			result = MoveResult.DRAW;
+		}
+		return result;
 	}
 }

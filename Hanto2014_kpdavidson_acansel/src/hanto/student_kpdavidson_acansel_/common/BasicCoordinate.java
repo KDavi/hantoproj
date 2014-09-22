@@ -1,7 +1,7 @@
 /**
- * file comment
+ * File comment
  */
-package hanto.student_kpdavidson_acansel_.beta;
+package hanto.student_kpdavidson_acansel_.common;
 
 import hanto.common.HantoCoordinate;
 
@@ -10,16 +10,16 @@ import hanto.common.HantoCoordinate;
  * @author Kyle & Adam
  *
  */
-public class BetaCoordinate implements HantoCoordinate {
+public class BasicCoordinate implements HantoCoordinate {
 
-	int x, y;
+int x, y;
 	
 	/**
 	 * Constructor
 	 * @param x x coordinate
 	 * @param y y coordinate
 	 */
-	public BetaCoordinate(int x, int y) {
+	public BasicCoordinate(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

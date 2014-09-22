@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import hanto.HantoGameFactory;
 import hanto.common.*;
 import hanto.student_kpdavidson_acansel_.beta.*;
+import hanto.student_kpdavidson_acansel_.common.BasicCoordinate;
 
 import org.junit.Test;
 
@@ -15,8 +16,8 @@ public class Piece_on_Piece {
 		HantoGame betagame = factory.makeHantoGame(HantoGameID.BETA_HANTO);
 		
 		try {
-			betagame.makeMove(HantoPieceType.BUTTERFLY, null, new BetaCoordinate(0,0)); //Blue
-			betagame.makeMove(HantoPieceType.SPARROW, null, new BetaCoordinate(0,0));   //Red
+			betagame.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,0)); //Blue
+			betagame.makeMove(HantoPieceType.SPARROW, null, new BasicCoordinate(0,0));   //Red
 			fail("should never be reached");
 		} catch (HantoException e) {
 			assertEquals("Spot already taken", e.getMessage());

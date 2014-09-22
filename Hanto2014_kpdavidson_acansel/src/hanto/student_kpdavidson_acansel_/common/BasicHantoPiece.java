@@ -1,7 +1,7 @@
 /**
- * file comment
+ * File comment
  */
-package hanto.student_kpdavidson_acansel_.beta;
+package hanto.student_kpdavidson_acansel_.common;
 
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
@@ -12,7 +12,7 @@ import hanto.common.HantoPlayerColor;
  * @author Kyle & Adam
  *
  */
-public class BetaHantoPiece implements HantoPiece {
+public class BasicHantoPiece implements HantoPiece {
 
 	HantoPieceType type;
 	HantoPlayerColor color;
@@ -22,11 +22,11 @@ public class BetaHantoPiece implements HantoPiece {
 	 * @param type type of piece
 	 * @param color color of player owning piece
 	 */
-	public BetaHantoPiece(HantoPieceType type, HantoPlayerColor color) {
+	public BasicHantoPiece(HantoPieceType type, HantoPlayerColor color) {
 		this.type = type;
 		this.color = color;
 	}
-
+	
 	@Override
 	public HantoPlayerColor getColor() {
 		return color;

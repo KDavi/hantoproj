@@ -10,6 +10,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.student_kpdavidson_acansel_.common.*;
 
 /**
  * 
@@ -59,7 +60,7 @@ public class AlphaHantoGame implements HantoGame {
 		}
 		else if(currentTurn.equals(HantoPlayerColor.RED)) {
 			if(pieceType.equals(HantoPieceType.BUTTERFLY) &&
-					from == null && isAdjacent(new AlphaCoordinate(0, 0), to)) {
+					from == null && isAdjacent(new BasicCoordinate(0, 0), to)) {
 				result = MoveResult.DRAW;
 			}
 			else {
@@ -78,12 +79,12 @@ public class AlphaHantoGame implements HantoGame {
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
 		HantoPiece ret = null;
-		HantoCoordinate zero = new AlphaCoordinate(0, 0);
+		HantoCoordinate zero = new BasicCoordinate(0, 0);
 		if(where.getX() == 0 && where.getY() == 0) {
-			ret = new AlphaHantoPiece(HantoPlayerColor.BLUE, HantoPieceType.BUTTERFLY);
+			ret = new BasicHantoPiece(HantoPieceType.BUTTERFLY, HantoPlayerColor.BLUE);
 		}
 		else if(isAdjacent(zero, where) && currentTurn == HantoPlayerColor.RED) {
-			ret = new AlphaHantoPiece(HantoPlayerColor.RED, HantoPieceType.BUTTERFLY);
+			ret = new BasicHantoPiece(HantoPieceType.BUTTERFLY, HantoPlayerColor.RED);
 		}
 		return ret;
 	}
