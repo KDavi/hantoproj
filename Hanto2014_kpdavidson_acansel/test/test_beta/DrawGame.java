@@ -1,8 +1,8 @@
 package test_beta;
 
 import static org.junit.Assert.*;
-import hanto.HantoGameFactory;
 import hanto.common.*;
+import hanto.student_kpdavidson_acansel_.HantoGameFactory;
 import hanto.student_kpdavidson_acansel_.beta.*;
 import hanto.student_kpdavidson_acansel_.common.BasicCoordinate;
 

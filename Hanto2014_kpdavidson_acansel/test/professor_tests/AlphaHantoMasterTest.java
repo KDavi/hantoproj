@@ -1,8 +1,8 @@
 package professor_tests;
 
 import static org.junit.Assert.*;
-import hanto.HantoGameFactory;
 import hanto.common.*;
+import hanto.student_kpdavidson_acansel_.HantoGameFactory;
 import hanto.student_kpdavidson_acansel_.alpha.*;
 
 import org.junit.Before;
