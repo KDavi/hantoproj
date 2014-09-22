@@ -1,6 +1,7 @@
 package test_alpha;
 
 import static org.junit.Assert.*;
+import hanto.HantoGameFactory;
 import hanto.common.*;
 import hanto.student_kpdavidson_acansel_.alpha.*;
 import hanto.student_kpdavidson_acansel_.common.BasicCoordinate;
@@ -11,7 +12,8 @@ public class GameToDraw {
 
 	@Test
 	public void goodGame01() {
-		HantoGame game = new AlphaHantoGame();
+		HantoGameFactory fact = HantoGameFactory.getInstance();
+		HantoGame game = fact.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		MoveResult result = null;
 		
 		try {
@@ -26,7 +28,8 @@ public class GameToDraw {
 	
 	@Test
 	public void goodGame10() {
-		HantoGame game = new AlphaHantoGame();
+		HantoGameFactory fact = HantoGameFactory.getInstance();
+		HantoGame game = fact.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		MoveResult result = null;
 		
 		try {
@@ -41,7 +44,8 @@ public class GameToDraw {
 	
 	@Test
 	public void goodGame1_1() {
-		HantoGame game = new AlphaHantoGame();
+		HantoGameFactory fact = HantoGameFactory.getInstance();
+		HantoGame game = fact.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		MoveResult result = null;
 		
 		try {
@@ -56,7 +60,8 @@ public class GameToDraw {
 
 	@Test
 	public void goodGame0_1() {
-		HantoGame game = new AlphaHantoGame();
+		HantoGameFactory fact = HantoGameFactory.getInstance();
+		HantoGame game = fact.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		MoveResult result = null;
 		
 		try {
@@ -71,7 +76,8 @@ public class GameToDraw {
 	
 	@Test
 	public void goodGame_10() {
-		HantoGame game = new AlphaHantoGame();
+		HantoGameFactory fact = HantoGameFactory.getInstance();
+		HantoGame game = fact.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		MoveResult result = null;
 		
 		try {
@@ -86,7 +92,8 @@ public class GameToDraw {
 	
 	@Test
 	public void goodGame_11() {
-		HantoGame game = new AlphaHantoGame();
+		HantoGameFactory fact = HantoGameFactory.getInstance();
+		HantoGame game = fact.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		MoveResult result = null;
 		
 		try {

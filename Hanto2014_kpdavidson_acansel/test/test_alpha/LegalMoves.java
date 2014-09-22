@@ -1,6 +1,7 @@
 package test_alpha;
 
 import static org.junit.Assert.*;
+import hanto.HantoGameFactory;
 import hanto.common.*;
 import hanto.student_kpdavidson_acansel_.alpha.*;
 import hanto.student_kpdavidson_acansel_.common.BasicCoordinate;
@@ -11,7 +12,8 @@ public class LegalMoves {
 
 	@Test
 	public void goodMove() {
-		HantoGame game = new AlphaHantoGame();
+		HantoGameFactory fact = HantoGameFactory.getInstance();
+		HantoGame game = fact.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		MoveResult result = null;
 		
 		try {
@@ -24,7 +26,8 @@ public class LegalMoves {
 	
 	@Test
 	public void badMove() {
-		HantoGame game = new AlphaHantoGame();
+		HantoGameFactory fact = HantoGameFactory.getInstance();
+		HantoGame game = fact.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		
 		try {
 			game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,1));
@@ -37,7 +40,8 @@ public class LegalMoves {
 	
 	@Test
 	public void badMove2() {
-		HantoGame game = new AlphaHantoGame();
+		HantoGameFactory fact = HantoGameFactory.getInstance();
+		HantoGame game = fact.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		
 		try {
 			game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,0));
