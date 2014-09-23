@@ -33,5 +33,9 @@ int x, y;
 	public int getY() {
 		return y;
 	}
+	
+	public String getkey() {
+		return Integer.toString(x) + Integer.toString(y);
+	}
 
 }

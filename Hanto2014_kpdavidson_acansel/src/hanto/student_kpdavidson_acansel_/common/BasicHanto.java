@@ -23,6 +23,7 @@ import hanto.common.MoveResult;
  */
 public abstract class BasicHanto implements HantoGame {
 
+	protected HantoPlayerColor whoStarted; //who went first
 	protected HantoPlayerColor turn; // who's turn it is
 	protected Map<String, BasicHantoPiece> gameboard;
 	protected BasicCoordinate bluefly; // location of blue butterfly
@@ -35,6 +36,7 @@ public abstract class BasicHanto implements HantoGame {
 	 * @param turn who goes first
 	 */
 	public BasicHanto(HantoPlayerColor turn) {
+		whoStarted = turn;
 		this.turn = turn;
 		gameboard = new HashMap<String, BasicHantoPiece>();
 		bluefly = null;
@@ -56,7 +58,7 @@ public abstract class BasicHanto implements HantoGame {
 	 */
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
-		String key = Integer.toString(where.getX()) + Integer.toString(where.getY());
+		String key = new BasicCoordinate(where.getX(), where.getY()).getkey();
 		HantoPiece piece = gameboard.get(key);
 		return piece;
 	}
