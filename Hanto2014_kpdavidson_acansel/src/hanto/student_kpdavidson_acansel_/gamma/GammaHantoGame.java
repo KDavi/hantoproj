@@ -1,30 +1,22 @@
-/**
- * File comment
- */
-package hanto.student_kpdavidson_acansel_.beta;
+package hanto.student_kpdavidson_acansel_.gamma;
 
-import hanto.common.*;
-import hanto.student_kpdavidson_acansel_.common.*;
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoGame;
+import hanto.common.HantoPiece;
+import hanto.common.HantoPieceType;
+import hanto.common.HantoPlayerColor;
+import hanto.common.MoveResult;
+import hanto.student_kpdavidson_acansel_.common.BasicCoordinate;
+import hanto.student_kpdavidson_acansel_.common.BasicHanto;
+import hanto.student_kpdavidson_acansel_.common.HantoWalkValidator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+public class GammaHantoGame extends BasicHanto implements HantoGame {
 
-/**
- * 
- * @author Kyle & Adam
- *
- */
-public class BetaHantoGame extends BasicHanto implements HantoGame {
-
+	private int blueSparrowCount; // how many blue sparrows can be placed
+	private int redSparrowCount; // how many red sparrows can be placed
 	
-	
-	/**
-	 * Constructor
-	 * @param turn who goes first
-	 */
-	public BetaHantoGame(HantoPlayerColor turn) {
+	public GammaHantoGame(HantoPlayerColor turn) {
 		super(turn);
 		legalPieces.add(HantoPieceType.BUTTERFLY);
 		legalPieces.add(HantoPieceType.SPARROW);
@@ -89,9 +81,31 @@ public class BetaHantoGame extends BasicHanto implements HantoGame {
 		// basic checks
 		super.ismovelegal(pieceType, from, to);
 		
-		// Beta specific checks
+		// Gamma specific checks
+		
+		// cannot place next to opposite color
+		if(from == null || turncount > 2) {
+			super.nextToOppositeColor(from, turn);
+		}
+		else {
+			HantoWalkValidator validator = new HantoWalkValidator(1, gameboard, from, to);
+			if(!validator.validate()) {
+				throw new HantoException("invalid walk");
+			}
+		}
+	}
+	
+	/** Performs the moving of a piece
+	 * @param pieceType the type of piece being moved
+	 * @param from old location of the piece
+	 * @param to new location of the piece
+	 */
+	protected void move(HantoPieceType pieceType, HantoCoordinate from,
+			HantoCoordinate to) {
+		super.move(pieceType, from, to);
+		
 		if(from != null) {
-			throw new HantoException("Cannot Move Pieces");
+			gameboard.remove(new BasicCoordinate(from).getkey());
 		}
 	}
 	
@@ -104,7 +118,7 @@ public class BetaHantoGame extends BasicHanto implements HantoGame {
 		MoveResult result = super.checkGameOver();
 		
 		// if no endgame check for draw due to time
-		if(turncount == 13 && result.equals(MoveResult.OK)) {
+		if(turncount == 41 && result.equals(MoveResult.OK)) {
 			result = MoveResult.DRAW;
 		}
 		return result;

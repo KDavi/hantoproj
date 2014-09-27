@@ -10,6 +10,7 @@
 
 package common;
 
+import test_gamma.GammaTestGame;
 import hanto.common.*;
 import hanto.student_kpdavidson_acansel_.HantoGameFactory;
 import hanto.student_kpdavidson_acansel_.alpha.AlphaHantoGame;
@@ -46,7 +47,7 @@ public class HantoTestGameFactory
 	 * @param gameId the version desired.
 	 * @return the game instance
 	 */
-	public HantoGame makeTestHantoGame(HantoGameID gameId)
+	public HantoTestGame makeHantoTestGame(HantoGameID gameId)
 	{
 		return makeHantoTestGame(gameId, HantoPlayerColor.BLUE);
 	}
@@ -57,11 +58,11 @@ public class HantoTestGameFactory
 	 * @param movesFirst the player color that moves first
 	 * @return the game instance
 	 */
-	public  HantoGame makeHantoTestGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
-		HantoGame game = null;
+	public  HantoTestGame makeHantoTestGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
+		HantoTestGame game = null;
 		switch (gameId) {
 			case GAMMA_HANTO:
-				//game = new GammaHantoTestGame(movesFirst);
+				game = new GammaTestGame(movesFirst);
 				break;
 		}
 		return game;

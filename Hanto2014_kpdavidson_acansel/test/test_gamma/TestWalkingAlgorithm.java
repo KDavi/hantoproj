@@ -26,6 +26,9 @@ public class TestWalkingAlgorithm {
 	@Test
 	public void Truetest() {
 		HashMap<String, BasicHantoPiece> board = new HashMap<String, BasicHantoPiece>();
+		board.put(new BasicCoordinate(0,0).getkey(), new BasicHantoPiece(HantoPieceType.SPARROW, HantoPlayerColor.BLUE));
+		board.put(new BasicCoordinate(1,0).getkey(), new BasicHantoPiece(HantoPieceType.SPARROW, HantoPlayerColor.BLUE));
+		board.put(new BasicCoordinate(1,1).getkey(), new BasicHantoPiece(HantoPieceType.SPARROW, HantoPlayerColor.BLUE));
 		BasicCoordinate start = new BasicCoordinate(0, 0);
 		BasicCoordinate destination = new BasicCoordinate(0, 2);
 		
@@ -38,6 +41,9 @@ public class TestWalkingAlgorithm {
 	@Test
 	public void Falsetest_noStepsLeft() {
 		HashMap<String, BasicHantoPiece> board = new HashMap<String, BasicHantoPiece>();
+		board.put(new BasicCoordinate(0,0).getkey(), new BasicHantoPiece(HantoPieceType.SPARROW, HantoPlayerColor.BLUE));
+		board.put(new BasicCoordinate(1,0).getkey(), new BasicHantoPiece(HantoPieceType.SPARROW, HantoPlayerColor.BLUE));
+		board.put(new BasicCoordinate(1,1).getkey(), new BasicHantoPiece(HantoPieceType.SPARROW, HantoPlayerColor.BLUE));
 		BasicCoordinate start = new BasicCoordinate(0, 0);
 		BasicCoordinate destination = new BasicCoordinate(0, 2);
 		
@@ -54,7 +60,26 @@ public class TestWalkingAlgorithm {
 		BasicCoordinate destination = new BasicCoordinate(0, 2);
 		
 		board.put(new BasicCoordinate(-1,1).getkey(), new BasicHantoPiece(HantoPieceType.BUTTERFLY, HantoPlayerColor.RED));
+		board.put(new BasicCoordinate(0,0).getkey(), new BasicHantoPiece(HantoPieceType.SPARROW, HantoPlayerColor.BLUE));
 		board.put(new BasicCoordinate(1,0).getkey(), new BasicHantoPiece(HantoPieceType.BUTTERFLY, HantoPlayerColor.BLUE));
+		board.put(new BasicCoordinate(1,1).getkey(), new BasicHantoPiece(HantoPieceType.SPARROW, HantoPlayerColor.BLUE));
+		
+		HantoWalkValidator validate = new HantoWalkValidator(2, board, start, destination);
+		boolean result = validate.validate();
+		
+		assertFalse(result);
+	}
+	
+	@Test
+	public void Falsetest_no_continuity() {
+		HashMap<String, BasicHantoPiece> board = new HashMap<String, BasicHantoPiece>();
+		BasicCoordinate start = new BasicCoordinate(0, 0);
+		BasicCoordinate destination = new BasicCoordinate(0, -2);
+		
+		board.put(new BasicCoordinate(-1,1).getkey(), new BasicHantoPiece(HantoPieceType.BUTTERFLY, HantoPlayerColor.RED));
+		board.put(new BasicCoordinate(0,0).getkey(), new BasicHantoPiece(HantoPieceType.SPARROW, HantoPlayerColor.BLUE));
+		board.put(new BasicCoordinate(1,0).getkey(), new BasicHantoPiece(HantoPieceType.BUTTERFLY, HantoPlayerColor.BLUE));
+		board.put(new BasicCoordinate(1,1).getkey(), new BasicHantoPiece(HantoPieceType.SPARROW, HantoPlayerColor.BLUE));
 		
 		HantoWalkValidator validate = new HantoWalkValidator(2, board, start, destination);
 		boolean result = validate.validate();

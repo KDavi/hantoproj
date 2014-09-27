@@ -23,6 +23,15 @@ int x, y;
 		this.x = x;
 		this.y = y;
 	}
+	
+	/**
+	 * Constructor
+	 * @param cord A hanto Coordinate
+	 */
+	public BasicCoordinate(HantoCoordinate cord) {
+		this.x = cord.getX();
+		this.y = cord.getY();
+	}
 
 	@Override
 	public int getX() {

@@ -31,6 +31,11 @@ public abstract class BasicHanto implements HantoGame {
 	protected List<HantoPieceType> legalPieces; // a list of legal pieces
 	protected int turncount;
 	
+	//piece inventory, how many of that piece can exist
+	protected int blueSparrowCount;
+	protected int redSparrowCount;
+	
+	
 	/**
 	 * Constructor
 	 * @param turn who goes first
@@ -42,6 +47,7 @@ public abstract class BasicHanto implements HantoGame {
 		bluefly = null;
 		redfly = null;
 		turncount = 1;
+		legalPieces = new ArrayList<HantoPieceType>();
 	}
 	
 	@Override
@@ -58,14 +64,14 @@ public abstract class BasicHanto implements HantoGame {
 	 */
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
-		String key = new BasicCoordinate(where.getX(), where.getY()).getkey();
+		String key = new BasicCoordinate(where).getkey();
 		HantoPiece piece = gameboard.get(key);
 		return piece;
 	}
 
 	@Override
 	public String getPrintableBoard() {
-		return null;
+		return "not supported";
 	}
 
 	/** Performs the moving of a piece
@@ -77,15 +83,23 @@ public abstract class BasicHanto implements HantoGame {
 			HantoCoordinate to) {
 		
 		BasicHantoPiece piece = new BasicHantoPiece(pieceType, turn);
-		String key = Integer.toString(to.getX()) + Integer.toString(to.getY());
+		String key = new BasicCoordinate(to).getkey();
 		gameboard.put(key, piece);
 		
 		if(piece.getType().equals(HantoPieceType.BUTTERFLY)) {
 			if(turn.equals(HantoPlayerColor.RED)) {
-				redfly = new BasicCoordinate(to.getX(), to.getY());
+				redfly = new BasicCoordinate(to);
 			}
 			else if(turn.equals(HantoPlayerColor.BLUE)) {
-				bluefly = new BasicCoordinate(to.getX(), to.getY());
+				bluefly = new BasicCoordinate(to);
+			}
+		}
+		else if(pieceType.equals(HantoPieceType.SPARROW)) {
+			if(turn.equals(HantoPlayerColor.RED)) {
+				redSparrowCount--;
+			}
+			else if(turn.equals(HantoPlayerColor.BLUE)) {
+				blueSparrowCount--;
 			}
 		}
 	}
@@ -129,6 +143,8 @@ public abstract class BasicHanto implements HantoGame {
 			HantoCoordinate to) throws HantoException {
 		
 		boolean outofbutterfly = false;
+		boolean outofpieceflag = false;
+		boolean mustplacebutterfly = false;
 		
 		if(!legalPieces.contains(pieceType)) {
 			throw new HantoException("Invalid Piece");
@@ -165,6 +181,36 @@ public abstract class BasicHanto implements HantoGame {
 		if(outofbutterfly) {
 			throw new HantoException("Out of that piece");
 		}
+		
+		if(turn.equals(HantoPlayerColor.BLUE)) {
+			if(pieceType.equals(HantoPieceType.SPARROW) && blueSparrowCount == 0) {
+				outofpieceflag = true;
+			}
+		}
+		else if(turn.equals(HantoPlayerColor.RED)) {
+			if(pieceType.equals(HantoPieceType.SPARROW) && redSparrowCount == 0) {
+				outofpieceflag = true;
+			}
+		}
+		if(outofpieceflag) {
+			throw new HantoException("Out of that piece");
+		}
+		
+		if(turncount == 7 || turncount == 8) {
+			if(turn.equals(HantoPlayerColor.BLUE) && bluefly == null) {
+				if(!pieceType.equals(HantoPieceType.BUTTERFLY)) {
+					mustplacebutterfly = true;
+				}
+			}
+			else if(turn.equals(HantoPlayerColor.RED) && redfly == null) {
+				if(!pieceType.equals(HantoPieceType.BUTTERFLY)) {
+					mustplacebutterfly = true;
+				}
+			}
+		}
+		if(mustplacebutterfly) {
+			throw new HantoException("Must Place Butterfly");
+		}
 	}
 	
 	/**
@@ -192,6 +238,55 @@ public abstract class BasicHanto implements HantoGame {
 		if(blueflysurrounded && redflysurrounded) result = MoveResult.DRAW;
 		else if(blueflysurrounded) result = MoveResult.RED_WINS;
 		else if(redflysurrounded) result = MoveResult.BLUE_WINS;
+		
+		return result;
+	}
+	
+	/** Checks if a given color at a location is next to a piece of the opposite color
+	 * @param location the location being checked
+	 * @param color the color to be checked
+	 * @return the number of pieces adjacent to the piece being checked
+	 */
+	protected boolean nextToOppositeColor(HantoCoordinate location, HantoPlayerColor color) {
+		boolean result = true;
+		
+		BasicCoordinate one = new BasicCoordinate(location.getX(), location.getY() + 1);
+		BasicCoordinate two = new BasicCoordinate(location.getX() + 1, location.getY());
+		BasicCoordinate three = new BasicCoordinate(location.getX() + 1, location.getY() - 1);
+		BasicCoordinate four = new BasicCoordinate(location.getX(), location.getY() - 1);
+		BasicCoordinate five = new BasicCoordinate(location.getX() - 1, location.getY());
+		BasicCoordinate six = new BasicCoordinate(location.getX() - 1, location.getY() + 1);
+		
+		if(getPieceAt(one) != null) {
+			if(getPieceAt(one).getColor() != color) {
+				result = false;
+			}
+		}
+		if(getPieceAt(two) != null) {
+			if(getPieceAt(two).getColor() != color) {
+				result = false;
+			}
+		}
+		if(getPieceAt(three) != null) {
+			if(getPieceAt(three).getColor() != color) {
+				result = false;
+			}
+		}
+		if(getPieceAt(four) != null) {
+			if(getPieceAt(four).getColor() != color) {
+				result = false;
+			}
+		}
+		if(getPieceAt(five) != null) {
+			if(getPieceAt(five).getColor() != color) {
+				result = false;
+			}
+		}
+		if(getPieceAt(six) != null) {
+			if(getPieceAt(six).getColor() != color) {
+				result = false;
+			}
+		}
 		
 		return result;
 	}
