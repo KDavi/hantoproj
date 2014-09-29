@@ -29,8 +29,8 @@ int x, y;
 	 * @param cord A hanto Coordinate
 	 */
 	public BasicCoordinate(HantoCoordinate cord) {
-		this.x = cord.getX();
-		this.y = cord.getY();
+		x = cord.getX();
+		y = cord.getY();
 	}
 
 	@Override
@@ -43,6 +43,10 @@ int x, y;
 		return y;
 	}
 	
+	/**
+	 * Produces a key for hashmap use
+	 * @return the key string
+	 */
 	public String getkey() {
 		return Integer.toString(x) + Integer.toString(y);
 	}

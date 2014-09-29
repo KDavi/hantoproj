@@ -1,7 +1,9 @@
 /**
- * File comment
+ * file comment
  */
-package hanto.student_kpdavidson_acansel_.gamma;
+package hanto.student_kpdavidson_acansel_.delta;
+
+import java.util.Map;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
@@ -11,21 +13,30 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.student_kpdavidson_acansel_.common.BasicCoordinate;
 import hanto.student_kpdavidson_acansel_.common.BasicHanto;
+import hanto.student_kpdavidson_acansel_.common.BasicHantoPiece;
+import hanto.student_kpdavidson_acansel_.common.HantoFlyValidator;
 import hanto.student_kpdavidson_acansel_.common.HantoWalkValidator;
+import hanto.student_kpdavidson_acansel_.common.Validator_interface;
 
 /**
  * 
  * @author Kyle & Adam
  *
  */
-public class GammaHantoGame extends BasicHanto implements HantoGame {
+public class DeltaHantoGame extends BasicHanto implements HantoGame {
+
+	private boolean gameIsOver;
 	
-	public GammaHantoGame(HantoPlayerColor turn) {
+	public DeltaHantoGame(HantoPlayerColor turn) {
 		super(turn);
 		legalPieces.add(HantoPieceType.BUTTERFLY);
 		legalPieces.add(HantoPieceType.SPARROW);
-		blueSparrowCount = 5;
-		redSparrowCount = 5;
+		legalPieces.add(HantoPieceType.CRAB);
+		blueSparrowCount = 4;
+		redSparrowCount = 4;
+		blueCrabCount = 4;
+		redCrabCount = 4;
+		gameIsOver = false;
 	}
 
 	/**
@@ -50,25 +61,41 @@ public class GammaHantoGame extends BasicHanto implements HantoGame {
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
 		
-		MoveResult result = MoveResult.OK;
-		
-		// will throw an exception if there is a problem
-		ismovelegal(pieceType, from, to);
-		
-		// makes the move
-		move(pieceType, from, to);
-		
-		// end the turn
-		turncount++;
-		if(turn.equals(HantoPlayerColor.BLUE)) {
-			turn = HantoPlayerColor.RED;
-		}
-		else {
-			turn = HantoPlayerColor.BLUE;
+		if(gameIsOver) {
+			throw new HantoException("game is already over");
 		}
 		
-		// check for game over situation
-		result = checkGameOver();
+		MoveResult result = checkresign(pieceType, from, to);
+		
+		if(pieceType == null && from == null && to == null) {
+			if(turn.equals(HantoPlayerColor.BLUE)) {
+				result = MoveResult.RED_WINS;
+			}
+			else {
+				result = MoveResult.BLUE_WINS;
+			}
+			gameIsOver = true;
+		}
+		
+		if(result.equals(MoveResult.OK)) {
+			// will throw an exception if there is a problem
+			ismovelegal(pieceType, from, to);
+
+			// makes the move
+			move(pieceType, from, to);
+
+			// end the turn
+			turncount++;
+			if(turn.equals(HantoPlayerColor.BLUE)) {
+				turn = HantoPlayerColor.RED;
+			}
+			else {
+				turn = HantoPlayerColor.BLUE;
+			}
+
+			// check for game over situation
+			result = checkGameOver();
+		}
 		
 		return result;
 	}
@@ -85,7 +112,7 @@ public class GammaHantoGame extends BasicHanto implements HantoGame {
 		// basic checks
 		super.ismovelegal(pieceType, from, to);
 		
-		// Gamma specific checks
+		// Delta specific checks
 		
 		// cannot place next to opposite color
 		if(from == null && turncount > 2) {
@@ -94,11 +121,11 @@ public class GammaHantoGame extends BasicHanto implements HantoGame {
 			}
 		}
 		
-		//test attempted walk
+		//test attempted walk or fly
 		if(from != null) {
-			HantoWalkValidator validator = new HantoWalkValidator(1, gameboard, from, to);
+			Validator_interface validator = getValidator(1, gameboard, from, to, pieceType);
 			if(!validator.validate()) {
-				throw new HantoException("invalid walk");
+				throw new HantoException("invalid move");
 			}
 		}
 	}
@@ -125,9 +152,51 @@ public class GammaHantoGame extends BasicHanto implements HantoGame {
 	protected MoveResult checkGameOver() {
 		MoveResult result = super.checkGameOver();
 		
-		// if no endgame check for draw due to time
-		if(turncount == 41 && result.equals(MoveResult.OK)) {
-			result = MoveResult.DRAW;
+		if(!result.equals(MoveResult.OK)) {
+			gameIsOver = true;
+		}
+		
+		return result;
+	}
+
+	private Validator_interface getValidator(int maxsteps,
+			Map<String, BasicHantoPiece> board,
+			HantoCoordinate startlocation, HantoCoordinate destination, HantoPieceType type) {
+		
+		Validator_interface ret = null;
+		
+		if(type.equals(HantoPieceType.BUTTERFLY)) {
+			ret = new HantoWalkValidator(maxsteps, board, startlocation, destination);
+		}
+		else if(type.equals(HantoPieceType.CRAB)) {
+			ret = new HantoWalkValidator(maxsteps, board, startlocation, destination);
+		}
+		else if(type.equals(HantoPieceType.SPARROW)) {
+			ret = new HantoFlyValidator(board, startlocation, destination);
+		}
+		
+		return ret;
+	}
+		
+	/**
+	 * Checks if a player is resigning
+	 * @param pieceType null if resigning
+	 * @param from null if resigning
+	 * @param to null if resigning
+	 * @return Move Result indicating status of the game
+	 */
+	private MoveResult checkresign(HantoPieceType pieceType, HantoCoordinate from,
+			HantoCoordinate to) {
+		MoveResult result = MoveResult.OK;
+		
+		if(pieceType == null && from == null && to == null) {
+			if(turn.equals(HantoPlayerColor.BLUE)) {
+				result = MoveResult.RED_WINS;
+			}
+			else {
+				result = MoveResult.BLUE_WINS;
+			}
+			gameIsOver = true;
 		}
 		return result;
 	}

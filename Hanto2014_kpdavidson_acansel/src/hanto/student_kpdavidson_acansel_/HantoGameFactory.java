@@ -13,6 +13,7 @@ package hanto.student_kpdavidson_acansel_;
 import hanto.common.*;
 import hanto.student_kpdavidson_acansel_.alpha.AlphaHantoGame;
 import hanto.student_kpdavidson_acansel_.beta.BetaHantoGame;
+import hanto.student_kpdavidson_acansel_.delta.DeltaHantoGame;
 import hanto.student_kpdavidson_acansel_.gamma.GammaHantoGame;
 
 /**
@@ -70,6 +71,9 @@ public class HantoGameFactory
 			break;
 		case GAMMA_HANTO:
 			game = new GammaHantoGame(movesFirst);
+			break;
+		case DELTA_HANTO:
+			game = new DeltaHantoGame(movesFirst);
 			break;
 		default:
 			//never

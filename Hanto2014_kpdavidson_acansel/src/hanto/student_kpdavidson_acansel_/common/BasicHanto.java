@@ -34,13 +34,15 @@ public abstract class BasicHanto implements HantoGame {
 	//piece inventory, how many of that piece can exist
 	protected int blueSparrowCount;
 	protected int redSparrowCount;
+	protected int blueCrabCount;
+	protected int redCrabCount;
 	
 	
 	/**
 	 * Constructor
 	 * @param turn who goes first
 	 */
-	public BasicHanto(HantoPlayerColor turn) {
+	protected BasicHanto(HantoPlayerColor turn) {
 		whoStarted = turn;
 		this.turn = turn;
 		gameboard = new HashMap<String, BasicHantoPiece>();
@@ -51,9 +53,9 @@ public abstract class BasicHanto implements HantoGame {
 	}
 	
 	@Override
-	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
+	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, 
 			HantoCoordinate to) throws HantoException {
-		//NOTHING, uses other methods below in subclass
+		ismovelegal(pieceType, from, to);
 		return null;
 	}
 
@@ -94,7 +96,7 @@ public abstract class BasicHanto implements HantoGame {
 				bluefly = new BasicCoordinate(to);
 			}
 		}
-		else if(pieceType.equals(HantoPieceType.SPARROW)) {
+		else if(pieceType.equals(HantoPieceType.SPARROW) && from == null) {
 			if(turn.equals(HantoPlayerColor.RED)) {
 				redSparrowCount--;
 			}
@@ -169,12 +171,12 @@ public abstract class BasicHanto implements HantoGame {
 		}
 		
 		if(turn.equals(HantoPlayerColor.BLUE)) {
-			if(pieceType.equals(HantoPieceType.BUTTERFLY) && bluefly != null) {
+			if(pieceType.equals(HantoPieceType.BUTTERFLY) && bluefly != null && from == null) {
 				outofbutterfly = true;
 			}
 		}
 		else if(turn.equals(HantoPlayerColor.RED)) {
-			if(pieceType.equals(HantoPieceType.BUTTERFLY) && redfly != null) {
+			if(pieceType.equals(HantoPieceType.BUTTERFLY) && redfly != null && from == null) {
 				outofbutterfly = true;
 			}
 		}
@@ -183,12 +185,18 @@ public abstract class BasicHanto implements HantoGame {
 		}
 		
 		if(turn.equals(HantoPlayerColor.BLUE)) {
-			if(pieceType.equals(HantoPieceType.SPARROW) && blueSparrowCount == 0) {
+			if(pieceType.equals(HantoPieceType.SPARROW) && blueSparrowCount == 0 && from == null) {
+				outofpieceflag = true;
+			}
+			else if(pieceType.equals(HantoPieceType.CRAB) && blueCrabCount == 0 && from == null) {
 				outofpieceflag = true;
 			}
 		}
 		else if(turn.equals(HantoPlayerColor.RED)) {
-			if(pieceType.equals(HantoPieceType.SPARROW) && redSparrowCount == 0) {
+			if(pieceType.equals(HantoPieceType.SPARROW) && redSparrowCount == 0 && from == null) {
+				outofpieceflag = true;
+			}
+			else if(pieceType.equals(HantoPieceType.CRAB) && redCrabCount == 0 && from == null) {
 				outofpieceflag = true;
 			}
 		}
@@ -235,9 +243,15 @@ public abstract class BasicHanto implements HantoGame {
 		}
 		
 		// check for early endgame
-		if(blueflysurrounded && redflysurrounded) result = MoveResult.DRAW;
-		else if(blueflysurrounded) result = MoveResult.RED_WINS;
-		else if(redflysurrounded) result = MoveResult.BLUE_WINS;
+		if(blueflysurrounded && redflysurrounded) {
+			result = MoveResult.DRAW;
+		}
+		else if(blueflysurrounded) {
+			result = MoveResult.RED_WINS;
+		}
+		else if(redflysurrounded) {
+			result = MoveResult.BLUE_WINS;
+		}
 		
 		return result;
 	}

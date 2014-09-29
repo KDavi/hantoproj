@@ -1,4 +1,4 @@
-package test_gamma;
+package test_delta;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
@@ -8,12 +8,13 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.student_kpdavidson_acansel_.common.BasicCoordinate;
 import hanto.student_kpdavidson_acansel_.common.BasicHantoPiece;
-import hanto.student_kpdavidson_acansel_.gamma.GammaHantoGame;
+import hanto.student_kpdavidson_acansel_.delta.DeltaHantoGame;
 import common.HantoTestGame;
+import common.HantoTestGame.PieceLocationPair;
 
-public class GammaTestGame extends GammaHantoGame implements HantoTestGame {
+public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame {
 
-	public GammaTestGame(HantoPlayerColor turn) {
+	public DeltaHantoTestGame(HantoPlayerColor turn) {
 		super(turn);
 	}
 
@@ -38,6 +39,14 @@ public class GammaTestGame extends GammaHantoGame implements HantoTestGame {
 				}
 				else if(piece.getColor().equals(HantoPlayerColor.BLUE)) {
 					blueSparrowCount--;
+				}
+			}
+			else if(piece.getType().equals(HantoPieceType.CRAB)) {
+				if(piece.getColor().equals(HantoPlayerColor.RED)) {
+					redCrabCount--;
+				}
+				else if(piece.getColor().equals(HantoPlayerColor.BLUE)) {
+					blueCrabCount--;
 				}
 			}
 		}

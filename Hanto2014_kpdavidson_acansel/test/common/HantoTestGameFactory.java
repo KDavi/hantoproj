@@ -10,6 +10,7 @@
 
 package common;
 
+import test_delta.DeltaHantoTestGame;
 import test_gamma.GammaTestGame;
 import hanto.common.*;
 import hanto.student_kpdavidson_acansel_.HantoGameFactory;
@@ -63,6 +64,9 @@ public class HantoTestGameFactory
 		switch (gameId) {
 			case GAMMA_HANTO:
 				game = new GammaTestGame(movesFirst);
+				break;
+			case DELTA_HANTO:
+				game = new DeltaHantoTestGame(movesFirst);
 				break;
 		}
 		return game;
