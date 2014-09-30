@@ -2,9 +2,11 @@ package test_delta;
 
 import static org.junit.Assert.*;
 import hanto.common.HantoException;
+import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.MoveResult;
+import hanto.student_kpdavidson_acansel_.HantoGameFactory;
 import hanto.student_kpdavidson_acansel_.common.BasicCoordinate;
 
 import org.junit.Test;
@@ -16,7 +18,7 @@ public class TestFly {
 
 	@Test
 	public void goodfly() {
-		HantoTestGame game = HantoTestGameFactory.getInstance().makeHantoTestGame(HantoGameID.DELTA_HANTO);
+		HantoGame game = HantoGameFactory.getInstance().makeHantoGame(HantoGameID.DELTA_HANTO);
 
 		try {
 			MoveResult result = game.makeMove(HantoPieceType.SPARROW, null, new BasicCoordinate(0, 0));

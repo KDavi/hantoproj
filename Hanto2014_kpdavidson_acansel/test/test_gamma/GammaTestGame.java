@@ -19,6 +19,7 @@ public class GammaTestGame extends GammaHantoGame implements HantoTestGame {
 
 	@Override
 	public void initializeBoard(PieceLocationPair[] initialPieces) {
+		gameboard.clear();
 		for(PieceLocationPair pair : initialPieces) {
 			BasicHantoPiece piece = new BasicHantoPiece(pair.pieceType, pair.player);
 			BasicCoordinate location = new BasicCoordinate(pair.location);

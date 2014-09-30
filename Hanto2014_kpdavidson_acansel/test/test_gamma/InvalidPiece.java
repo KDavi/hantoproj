@@ -2,9 +2,11 @@ package test_gamma;
 
 import static org.junit.Assert.*;
 import hanto.common.HantoException;
+import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.MoveResult;
+import hanto.student_kpdavidson_acansel_.HantoGameFactory;
 import hanto.student_kpdavidson_acansel_.common.BasicCoordinate;
 
 import org.junit.Test;
@@ -16,7 +18,7 @@ public class InvalidPiece {
 
 	@Test
 	public void test() {
-		HantoTestGame game = HantoTestGameFactory.getInstance().makeHantoTestGame(HantoGameID.GAMMA_HANTO);
+		HantoGame game = HantoGameFactory.getInstance().makeHantoGame(HantoGameID.GAMMA_HANTO);
 		
 		try {
 			MoveResult result = game.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0, 0));
