@@ -166,6 +166,17 @@ public abstract class BasicHanto implements HantoGame {
 			throw new HantoException("Spot already taken");
 		}
 		
+		if(from != null) {
+			if(getPieceAt(from) == null) {
+				throw new HantoException("There is nothing at from");
+			}
+			else {
+				if(!getPieceAt(from).getType().equals(pieceType)) {
+					throw new HantoException("Moving wrong piece type");
+				}
+			}
+		}
+		
 		if(num_adjacent(to) == 0 && turncount != 1) {
 			throw new HantoException("Illegal Destination");
 		}

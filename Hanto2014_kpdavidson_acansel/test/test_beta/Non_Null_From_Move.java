@@ -16,7 +16,9 @@ public class Non_Null_From_Move {
 		HantoGame betagame = factory.makeHantoGame(HantoGameID.BETA_HANTO);
 		
 		try {
-			betagame.makeMove(HantoPieceType.BUTTERFLY, new BasicCoordinate(2,3), new BasicCoordinate(0,0));
+			betagame.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,0));
+			betagame.makeMove(HantoPieceType.BUTTERFLY, null, new BasicCoordinate(0,1));
+			betagame.makeMove(HantoPieceType.BUTTERFLY, new BasicCoordinate(0,0), new BasicCoordinate(1,0));
 			fail("should never be reached");
 		} catch (HantoException e) {
 			assertEquals(e.getMessage(), "Cannot Move Pieces");
