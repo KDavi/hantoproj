@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class JumpValidator extends Continuity implements Validator_interface {
 
-	protected JumpValidator(Map<String, BasicHantoPiece> gameboard,
+	public JumpValidator(Map<String, BasicHantoPiece> gameboard,
 			HantoCoordinate startlocation, HantoCoordinate destination) {
 		super(gameboard, startlocation, destination);
 	}

@@ -36,6 +36,8 @@ public abstract class BasicHanto implements HantoGame {
 	protected int redSparrowCount;
 	protected int blueCrabCount;
 	protected int redCrabCount;
+	protected int blueHorseCount;
+	protected int redHorseCount;
 	
 	
 	/**
@@ -102,6 +104,22 @@ public abstract class BasicHanto implements HantoGame {
 			}
 			else if(turn.equals(HantoPlayerColor.BLUE)) {
 				blueSparrowCount--;
+			}
+		}
+		else if(pieceType.equals(HantoPieceType.CRAB) && from == null) {
+			if(turn.equals(HantoPlayerColor.RED)) {
+				redCrabCount--;
+			}
+			else if(turn.equals(HantoPlayerColor.BLUE)) {
+				blueCrabCount--;
+			}
+		}
+		else if(pieceType.equals(HantoPieceType.HORSE) && from == null) {
+			if(turn.equals(HantoPlayerColor.RED)) {
+				redHorseCount--;
+			}
+			else if(turn.equals(HantoPlayerColor.BLUE)) {
+				blueHorseCount--;
 			}
 		}
 	}
@@ -202,12 +220,18 @@ public abstract class BasicHanto implements HantoGame {
 			else if(pieceType.equals(HantoPieceType.CRAB) && blueCrabCount == 0 && from == null) {
 				outofpieceflag = true;
 			}
+			else if(pieceType.equals(HantoPieceType.HORSE) && blueHorseCount == 0 && from == null) {
+				outofpieceflag = true;
+			}
 		}
 		else if(turn.equals(HantoPlayerColor.RED)) {
 			if(pieceType.equals(HantoPieceType.SPARROW) && redSparrowCount == 0 && from == null) {
 				outofpieceflag = true;
 			}
 			else if(pieceType.equals(HantoPieceType.CRAB) && redCrabCount == 0 && from == null) {
+				outofpieceflag = true;
+			}
+			else if(pieceType.equals(HantoPieceType.HORSE) && redHorseCount == 0 && from == null) {
 				outofpieceflag = true;
 			}
 		}
