@@ -12,7 +12,19 @@ import org.junit.Test;
 public class FirstMove {
 
 	@Test
-	public void test() {
+	public void BLUE() {
+		HantoGamePlayer player = new HantoPlayer();
+		
+		player.startGame(HantoGameID.EPSILON_HANTO, HantoPlayerColor.BLUE, true);
+		HantoMoveRecord result = player.makeMove(null);
+		
+		assertEquals(result.getFrom(), null);
+		assertEquals(result.getTo().getX(), 0);
+		assertEquals(result.getTo().getY(), 0);
+	}
+
+	@Test
+	public void RED() {
 		HantoGamePlayer player = new HantoPlayer();
 		
 		player.startGame(HantoGameID.EPSILON_HANTO, HantoPlayerColor.RED, true);
@@ -22,5 +34,4 @@ public class FirstMove {
 		assertEquals(result.getTo().getX(), 0);
 		assertEquals(result.getTo().getY(), 0);
 	}
-
 }
