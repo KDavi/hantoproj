@@ -4,6 +4,7 @@
 package hanto.student_kpdavidson_acansel_.epsilon;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,6 +24,7 @@ import hanto.student_kpdavidson_acansel_.common.FlyFourValidator;
 import hanto.student_kpdavidson_acansel_.common.HantoWalkValidator;
 import hanto.student_kpdavidson_acansel_.common.JumpValidator;
 import hanto.student_kpdavidson_acansel_.common.Validator_interface;
+import hanto.tournament.HantoMoveRecord;
 
 /**
  * 
@@ -31,8 +33,8 @@ import hanto.student_kpdavidson_acansel_.common.Validator_interface;
  */
 public class EpsilonHantoGame extends BasicHanto implements HantoGame {
 	
-	private boolean gameIsOver;
-	protected List<BasicCoordinate> possiblespaces; //list of spaces that can possibly be moved to
+	protected boolean gameIsOver;
+	protected List<String> possiblespaces; //list of spaces that can possibly be moved to
 	
 	public EpsilonHantoGame(HantoPlayerColor turn) {
 		super(turn);
@@ -47,8 +49,8 @@ public class EpsilonHantoGame extends BasicHanto implements HantoGame {
 		blueHorseCount = 4;
 		redHorseCount = 4;
 		gameIsOver = false;
-		possiblespaces = new ArrayList<BasicCoordinate>();
-		possiblespaces.add(new BasicCoordinate(0, 0));
+		possiblespaces = new ArrayList<String>();
+		possiblespaces.add(new BasicCoordinate(0, 0).getkey());
 	}
 
 	/**
@@ -157,39 +159,39 @@ public class EpsilonHantoGame extends BasicHanto implements HantoGame {
 		if(from != null) {
 			BasicCoordinate basicfrom = new BasicCoordinate(from);
 			gameboard.remove(new BasicCoordinate(from).getkey());
-			if(!possiblespaces.contains(basicfrom)) {
-				possiblespaces.add(basicfrom);
+			if(!possiblespaces.contains(basicfrom.getkey())) {
+				possiblespaces.add(basicfrom.getkey());
 			}
 		}
-		possiblespaces.remove(basicto);
+		possiblespaces.remove(basicto.getkey());
 		if(getPieceAt(new BasicCoordinate(to.getX(), to.getY() + 1)) == null) {
-			if(!possiblespaces.contains(new BasicCoordinate(to.getX(), to.getY() + 1))) {
-				possiblespaces.add(new BasicCoordinate(to.getX(), to.getY() + 1));
+			if(!possiblespaces.contains(new BasicCoordinate(to.getX(), to.getY() + 1).getkey())) {
+				possiblespaces.add(new BasicCoordinate(to.getX(), to.getY() + 1).getkey());
 			}
 		}
 		if(getPieceAt(new BasicCoordinate(to.getX() + 1, to.getY())) == null) {
-			if(!possiblespaces.contains(new BasicCoordinate(to.getX() + 1, to.getY()))) {
-				possiblespaces.add(new BasicCoordinate(to.getX() + 1, to.getY()));
+			if(!possiblespaces.contains(new BasicCoordinate(to.getX() + 1, to.getY()).getkey())) {
+				possiblespaces.add(new BasicCoordinate(to.getX() + 1, to.getY()).getkey());
 			}
 		}
 		if(getPieceAt(new BasicCoordinate(to.getX() + 1, to.getY() - 1)) == null) {
-			if(!possiblespaces.contains(new BasicCoordinate(to.getX() + 1, to.getY() - 1))) {
-				possiblespaces.add(new BasicCoordinate(to.getX() + 1, to.getY() - 1));
+			if(!possiblespaces.contains(new BasicCoordinate(to.getX() + 1, to.getY() - 1).getkey())) {
+				possiblespaces.add(new BasicCoordinate(to.getX() + 1, to.getY() - 1).getkey());
 			}
 		}
 		if(getPieceAt(new BasicCoordinate(to.getX(), to.getY() - 1)) == null) {
-			if(!possiblespaces.contains(new BasicCoordinate(to.getX(), to.getY() - 1))) {
-				possiblespaces.add(new BasicCoordinate(to.getX(), to.getY() - 1));
+			if(!possiblespaces.contains(new BasicCoordinate(to.getX(), to.getY() - 1).getkey())) {
+				possiblespaces.add(new BasicCoordinate(to.getX(), to.getY() - 1).getkey());
 			}
 		}
 		if(getPieceAt(new BasicCoordinate(to.getX() - 1, to.getY())) == null) {
-			if(!possiblespaces.contains(new BasicCoordinate(to.getX() - 1, to.getY()))) {
-				possiblespaces.add(new BasicCoordinate(to.getX() - 1, to.getY()));
+			if(!possiblespaces.contains(new BasicCoordinate(to.getX() - 1, to.getY()).getkey())) {
+				possiblespaces.add(new BasicCoordinate(to.getX() - 1, to.getY()).getkey());
 			}
 		}
 		if(getPieceAt(new BasicCoordinate(to.getX() - 1, to.getY() + 1)) == null) {
-			if(!possiblespaces.contains(new BasicCoordinate(to.getX() - 1, to.getY() + 1))) {
-				possiblespaces.add(new BasicCoordinate(to.getX() - 1, to.getY() + 1));
+			if(!possiblespaces.contains(new BasicCoordinate(to.getX() - 1, to.getY() + 1).getkey())) {
+				possiblespaces.add(new BasicCoordinate(to.getX() - 1, to.getY() + 1).getkey());
 			}
 		}
 	}
@@ -209,7 +211,16 @@ public class EpsilonHantoGame extends BasicHanto implements HantoGame {
 		return result;
 	}
 
-	private Validator_interface getValidator(int maxsteps,
+	/**
+	 * 
+	 * @param maxsteps maximum number of steps
+	 * @param board the current gameboard
+	 * @param startlocation the location the piece is at
+	 * @param destination the location the piece is going
+	 * @param type the type of piece
+	 * @return a validator that will tell you if a move is ok or not
+	 */
+	protected Validator_interface getValidator(int maxsteps,
 			Map<String, BasicHantoPiece> board,
 			HantoCoordinate startlocation, HantoCoordinate destination, HantoPieceType type) {
 		
@@ -237,8 +248,9 @@ public class EpsilonHantoGame extends BasicHanto implements HantoGame {
 	 * @param from null if resigning
 	 * @param to null if resigning
 	 * @return Move Result indicating status of the game
+	 * @throws HantoPrematureResignationException if you resign to early
 	 */
-	private MoveResult checkresign(HantoPieceType pieceType, HantoCoordinate from,
+	protected MoveResult checkresign(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoPrematureResignationException {
 		MoveResult result = MoveResult.OK;
 		
@@ -252,7 +264,7 @@ public class EpsilonHantoGame extends BasicHanto implements HantoGame {
 			gameIsOver = true;
 			
 			//check if any moves could have been made
-			if(moveCanBeMade()) {
+			if(!moveCanBeMade().isEmpty()) {
 				throw new HantoPrematureResignationException();
 			}
 		}
@@ -260,9 +272,13 @@ public class EpsilonHantoGame extends BasicHanto implements HantoGame {
 		return result;
 	}
 
-	private boolean moveCanBeMade() {
-		boolean result = false;
-		
+	/**
+	 * Checks if a move can be made
+	 * @return List of all possible moves in the form of HantoMoveRecords
+	 */
+	protected List<HantoMoveRecord> moveCanBeMade() {
+		List<HantoMoveRecord> result = new LinkedList<HantoMoveRecord>();
+
 		//check possible placements of pieces off the board
 		HantoPieceType type = null;
 		if(turn.equals(HantoPlayerColor.RED)) {
@@ -294,48 +310,49 @@ public class EpsilonHantoGame extends BasicHanto implements HantoGame {
 			}
 		}
 		if(type != null) {
-			for(BasicCoordinate to : possiblespaces) {
+			for(String str : possiblespaces) {
 				try {
+					BasicCoordinate to = reversekey(str);
 					ismovelegal(type, null, to);
-					result = true;
+					result.add(new HantoMoveRecord(type, null, to));
 				}catch(HantoException e) {
 					String exception = e.getMessage();
 					exception.length(); //required by CodePro
 				}
 			}
 		}
-		
-		//check possible moves of pieces already on board
-		if(!result) {
-			Set<String> tmp = gameboard.keySet();
-			String[] piecelocations = tmp.toArray(new String[tmp.size()]);
-			for(String piecelocation : piecelocations) {
-				BasicCoordinate from = reversekey(piecelocation);
-				HantoPiece piece = getPieceAt(from);
 
-				for(BasicCoordinate to : possiblespaces) {
+		//check possible moves of pieces already on board
+		Set<String> tmp = gameboard.keySet();
+		String[] piecelocations = tmp.toArray(new String[tmp.size()]);
+		for(String piecelocation : piecelocations) {
+			BasicCoordinate from = reversekey(piecelocation);
+			HantoPiece piece = getPieceAt(from);
+			if(piece.getColor().equals(turn)) {
+				for(String str : possiblespaces) {
 					try {
-						if(piece.getColor().equals(turn)) {
-							ismovelegal(piece.getType(), from, to);
-							result = true;
-							break;
-						}
+						BasicCoordinate to = reversekey(str);
+						ismovelegal(piece.getType(), from, to);
+						result.add(new HantoMoveRecord(piece.getType(), from, to));
+						break;
 
 					}catch(HantoException e) {
 						String exception = e.getMessage();
 						exception.length(); //required by CodePro
 					}
 				}
-				if(result) {
-					break;
-				}
-
 			}
 		}
+
 		return result;
 	}
 	
-	private BasicCoordinate reversekey(String key) {
+	/**
+	 * Reverses a key string into a coordinate object
+	 * @param key the key being reversed
+	 * @return The Coordinate form of the key
+	 */
+	protected BasicCoordinate reversekey(String key) {
 		String[] XandY = key.split("BREAK");
 		
 		return (new BasicCoordinate(Integer.parseInt(XandY[0]), Integer.parseInt(XandY[1])));

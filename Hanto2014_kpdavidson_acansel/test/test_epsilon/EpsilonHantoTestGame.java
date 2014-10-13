@@ -63,33 +63,33 @@ public class EpsilonHantoTestGame extends EpsilonHantoGame implements
 			
 			possiblespaces.remove(basicto);
 			if(getPieceAt(new BasicCoordinate(basicto.getX(), basicto.getY() + 1)) == null) {
-				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX(), basicto.getY() + 1))) {
-					possiblespaces.add(new BasicCoordinate(basicto.getX(), basicto.getY() + 1));
+				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX(), basicto.getY() + 1).getkey())) {
+					possiblespaces.add(new BasicCoordinate(basicto.getX(), basicto.getY() + 1).getkey());
 				}
 			}
 			if(getPieceAt(new BasicCoordinate(basicto.getX() + 1, basicto.getY())) == null) {
-				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX() + 1, basicto.getY()))) {
-					possiblespaces.add(new BasicCoordinate(basicto.getX() + 1, basicto.getY()));
+				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX() + 1, basicto.getY()).getkey())) {
+					possiblespaces.add(new BasicCoordinate(basicto.getX() + 1, basicto.getY()).getkey());
 				}
 			}
 			if(getPieceAt(new BasicCoordinate(basicto.getX() + 1, basicto.getY() - 1)) == null) {
-				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX() + 1, basicto.getY() - 1))) {
-					possiblespaces.add(new BasicCoordinate(basicto.getX() + 1, basicto.getY() - 1));
+				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX() + 1, basicto.getY() - 1).getkey())) {
+					possiblespaces.add(new BasicCoordinate(basicto.getX() + 1, basicto.getY() - 1).getkey());
 				}
 			}
 			if(getPieceAt(new BasicCoordinate(basicto.getX(), basicto.getY() - 1)) == null) {
-				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX(), basicto.getY() - 1))) {
-					possiblespaces.add(new BasicCoordinate(basicto.getX(), basicto.getY() - 1));
+				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX(), basicto.getY() - 1).getkey())) {
+					possiblespaces.add(new BasicCoordinate(basicto.getX(), basicto.getY() - 1).getkey());
 				}
 			}
 			if(getPieceAt(new BasicCoordinate(basicto.getX() - 1, basicto.getY())) == null) {
-				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX() - 1, basicto.getY()))) {
-					possiblespaces.add(new BasicCoordinate(basicto.getX() - 1, basicto.getY()));
+				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX() - 1, basicto.getY()).getkey())) {
+					possiblespaces.add(new BasicCoordinate(basicto.getX() - 1, basicto.getY()).getkey());
 				}
 			}
 			if(getPieceAt(new BasicCoordinate(basicto.getX() - 1, basicto.getY() + 1)) == null) {
-				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX() - 1, basicto.getY() + 1))) {
-					possiblespaces.add(new BasicCoordinate(basicto.getX() - 1, basicto.getY() + 1));
+				if(!possiblespaces.contains(new BasicCoordinate(basicto.getX() - 1, basicto.getY() + 1).getkey())) {
+					possiblespaces.add(new BasicCoordinate(basicto.getX() - 1, basicto.getY() + 1).getkey());
 				}
 			}
 		}

@@ -26,7 +26,7 @@ import hanto.student_kpdavidson_acansel_.gamma.GammaHantoGame;
  */
 public class HantoGameFactory
 {
-	private static final HantoGameFactory instance = new HantoGameFactory();
+	private static final HantoGameFactory INSTANCE = new HantoGameFactory();
 	
 	/**
 	 * Default private descriptor.
@@ -41,7 +41,7 @@ public class HantoGameFactory
 	 */
 	public static HantoGameFactory getInstance()
 	{
-		return instance;
+		return INSTANCE;
 	}
 	
 	/**

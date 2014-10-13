@@ -51,11 +51,4 @@ int x, y;
 		return Integer.toString(x) + "BREAK" +  Integer.toString(y);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	public boolean equals(BasicCoordinate arg0) {
-		return (arg0.getX() == x && arg0.getY() == y);
-	}
-
 }
