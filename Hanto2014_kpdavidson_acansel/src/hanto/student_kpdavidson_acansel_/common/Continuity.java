@@ -9,6 +9,7 @@ import hanto.common.HantoPlayerColor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -87,7 +88,7 @@ public abstract class Continuity {
 		gather_pieces(current, boardstatus);
 		
 		// check if the pieces gathered by gather_pieces are all the pieces on the real board
-		Set<String> setFromBoard = gameboard.keySet();
+		Set<String> setFromBoard = new HashSet<String>(gameboard.keySet());
 		setFromBoard.remove(startlocation.getkey()); //remove startlocations key, that piece has moved
 		
 		boolean result = true;

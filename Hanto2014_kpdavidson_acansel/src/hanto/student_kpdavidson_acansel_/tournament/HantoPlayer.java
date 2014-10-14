@@ -67,10 +67,8 @@ public class HantoPlayer implements HantoGamePlayer {
 			} catch (HantoException e) {
 				e.printStackTrace();
 			}
-			
 			//make our move
 			List<HantoMoveRecord> possibles = game.moveCanBeMade();
-			
 			if(possibles.isEmpty()) {
 				ourmove = new HantoMoveRecord(null, null, null);
 			}

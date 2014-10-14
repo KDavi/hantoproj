@@ -4,6 +4,7 @@
 package hanto.student_kpdavidson_acansel_.epsilon;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -323,7 +324,7 @@ public class EpsilonHantoGame extends BasicHanto implements HantoGame {
 		}
 
 		//check possible moves of pieces already on board
-		Set<String> tmp = gameboard.keySet();
+		Set<String> tmp = new HashSet<String>(gameboard.keySet());
 		String[] piecelocations = tmp.toArray(new String[tmp.size()]);
 		for(String piecelocation : piecelocations) {
 			BasicCoordinate from = reversekey(piecelocation);
