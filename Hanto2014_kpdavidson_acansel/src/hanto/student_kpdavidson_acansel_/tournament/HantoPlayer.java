@@ -76,6 +76,11 @@ public class HantoPlayer implements HantoGamePlayer {
 			}
 			else {
 				ourmove = possibles.get(0);
+				try {
+					game.makeMove(possibles.get(0).getPiece(), possibles.get(0).getFrom(), possibles.get(0).getTo());
+				} catch (HantoException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return ourmove;
